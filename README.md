@@ -1,8 +1,4 @@
-# TECHNICAL TEST
-
-
-[//]: # (Crear un archivo README que explique cómo configurar y ejecutar la aplicación, así)
-[//]: # (como cualquier información adicional relevante.)
+##  TECHNICAL TEST SOSTECNIBLE
 
 ### How to run the application
 1. Clone this repository in your local machine.
@@ -14,5 +10,4 @@
 ### Additional information
 - The application is running in the port 8080.
 - The application has a Swagger UI to test the endpoints. You can access to it in the following URL: http://localhost:8080/swagger-ui.html
-
 

@@ -31,6 +31,19 @@ public class TaskService {
         return taskRepository.findById(id);
     }
 
+    public Optional<Task> updateTask(String id, Task task) {
+        return findById(id).map(taskUpdate -> {
+            taskUpdate.setTitle(task.getTitle());
+            taskUpdate.setDescription(task.getDescription());
+            taskUpdate.setCreationDate(task.getCreationDate());
+            taskUpdate.setPriority(task.getPriority());
+            taskUpdate.setExpirationDate(task.getExpirationDate());
+            taskUpdate.setCompleted(task.isCompleted());
+            taskUpdate.setAssignedTo(task.getAssignedTo());
+            return taskRepository.save(taskUpdate);
+        });
+    }
+
     public boolean deleteTask(String id) {
         return findById(id).map(task -> {
             taskRepository.delete(task);
@@ -49,5 +62,7 @@ public class TaskService {
     public List<Task> findAllByHighPriority() {
         return taskRepository.findAllByOrderByPriorityDesc();
     }
+
+
 
 }
