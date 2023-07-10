@@ -3,6 +3,8 @@ package com.jhon.technical_test.service;
 import com.jhon.technical_test.model.Task;
 import com.jhon.technical_test.repository.ITaskRepository;
 import com.jhon.technical_test.repository.TaskFilterRepository;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.PropertyMap;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,13 +35,9 @@ public class TaskService {
 
     public Optional<Task> updateTask(String id, Task task) {
         return findById(id).map(taskUpdate -> {
-            taskUpdate.setTitle(task.getTitle());
-            taskUpdate.setDescription(task.getDescription());
-            taskUpdate.setCreationDate(task.getCreationDate());
-            taskUpdate.setPriority(task.getPriority());
-            taskUpdate.setExpirationDate(task.getExpirationDate());
-            taskUpdate.setCompleted(task.isCompleted());
-            taskUpdate.setAssignedTo(task.getAssignedTo());
+            ModelMapper modelMapper = new ModelMapper();
+           modelMapper.getConfiguration().setPropertyCondition(context -> context.getSource() != null);
+           modelMapper.map(task, taskUpdate);
             return taskRepository.save(taskUpdate);
         });
     }

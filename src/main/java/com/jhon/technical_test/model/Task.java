@@ -1,7 +1,6 @@
 package com.jhon.technical_test.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -15,7 +14,7 @@ import java.util.Date;
 
 @Document(collection = "tasks")
 @Data
-@AllArgsConstructor
+//@AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Task {
@@ -35,10 +34,31 @@ public class Task {
     @NotNull(message = "Priority is mandatory")
     private Date creationDate;
 
+
     private Priority priority = Priority.LOW;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date expirationDate;
     private boolean completed;
     private String assignedTo;
+
+    public Task(@NotNull String id, @NotNull String title, @NotNull String description, @NotNull Date creationDate, Priority priority, Date expirationDate, boolean completed, String assignedTo) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.creationDate = creationDate;
+        this.priority = priority;
+        this.expirationDate = expirationDate;
+        this.completed = completed;
+        this.assignedTo = assignedTo;
+    }
+
+    public Task (@NotNull String id, @NotNull String title, @NotNull String description, @NotNull Date creationDate){
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.creationDate = creationDate;
+    }
+
+
 }
