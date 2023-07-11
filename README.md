@@ -10,4 +10,4 @@
 ### Additional information
 - The application is running in the port 8080.
 - The application has a Swagger UI to test the endpoints. You can access to it in the following URL: http://localhost:8080/swagger-ui.html
-
+- The tests are in the folder "src/test/java/com/jhon/technical_test/{NameTestLayer}".
