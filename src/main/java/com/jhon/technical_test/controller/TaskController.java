@@ -30,6 +30,9 @@ public class TaskController {
     @Operation(summary = "Add a new task")
     @ApiResponses({@ApiResponse(responseCode = "201", description = "Task created"), @ApiResponse(responseCode = "400", description = "Bad Request: Please enter the necessary fields.", content = @Content), @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)})
     public ResponseEntity<Task> addTask(@Valid @RequestBody Task task) {
+        if (task.getId() == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity<>(taskService.addTask(task), HttpStatus.CREATED);
     }
 
@@ -43,7 +46,7 @@ public class TaskController {
     @GetMapping("/{id}")
     @Operation(summary = "Get task by Task ID")
     @ApiResponses({@ApiResponse(responseCode = "200", description = "Found task by id"), @ApiResponse(responseCode = "404", description = "Task not found", content = @Content), @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)})
-    public ResponseEntity<Task> findById(@Parameter(description = "Task id", required = true, example = "64a96e1e") @PathVariable String id) {
+    public ResponseEntity<Task> findById(@Parameter(description = "Task id", required = true, example = "idTask001") @PathVariable String id) {
         return taskService.findById(id).map(task -> new ResponseEntity<>(task, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 

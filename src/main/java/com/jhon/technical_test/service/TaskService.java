@@ -4,8 +4,9 @@ import com.jhon.technical_test.model.Task;
 import com.jhon.technical_test.repository.ITaskRepository;
 import com.jhon.technical_test.repository.TaskFilterRepository;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.PropertyMap;
+import org.springdoc.api.OpenApiResourceNotFoundException;
 import org.springframework.stereotype.Service;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +23,10 @@ public class TaskService {
     }
 
     public Task addTask(Task task) {
+        Optional<Task> saveTask = findById(task.getId());
+        if (saveTask.isPresent()) {
+            throw new OpenApiResourceNotFoundException("Task already exists");
+        }
         return taskRepository.save(task);
     }
 
@@ -36,8 +41,8 @@ public class TaskService {
     public Optional<Task> updateTask(String id, Task task) {
         return findById(id).map(taskUpdate -> {
             ModelMapper modelMapper = new ModelMapper();
-           modelMapper.getConfiguration().setPropertyCondition(context -> context.getSource() != null);
-           modelMapper.map(task, taskUpdate);
+            modelMapper.getConfiguration().setPropertyCondition(context -> context.getSource() != null);
+            modelMapper.map(task, taskUpdate);
             return taskRepository.save(taskUpdate);
         });
     }
@@ -58,9 +63,8 @@ public class TaskService {
     }
 
     public List<Task> findAllByHighPriority() {
-        return taskRepository.findAllByOrderByPriorityDesc();
+        return taskFilterRepository.findAllByOrderByHighToLowPriority();
     }
-
 
 
 }

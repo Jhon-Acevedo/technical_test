@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
@@ -53,7 +52,7 @@ public class Task {
         this.assignedTo = assignedTo;
     }
 
-    public Task (@NotNull String id, @NotNull String title, @NotNull String description, @NotNull Date creationDate){
+    public Task(@NotNull String id, @NotNull String title, @NotNull String description, @NotNull Date creationDate) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -61,4 +60,11 @@ public class Task {
     }
 
 
+    public Task(@NotNull String id, @NotNull String title, @NotNull String description, @NotNull Date date, Priority priority) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.creationDate = date;
+        this.priority = priority;
+    }
 }

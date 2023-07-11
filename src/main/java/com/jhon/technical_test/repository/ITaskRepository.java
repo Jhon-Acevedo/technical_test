@@ -8,5 +8,6 @@ import java.util.List;
 public interface ITaskRepository extends MongoRepository<Task, String> {
     List<Task> findAllByOrderByCreationDateAsc();
 
-    List<Task> findAllByOrderByPriorityDesc();
+//    List<Task> findAllByOrderByPriorityDesc();
+//    List<Task> findAllByOrOrderByPriority();
 }

@@ -26,4 +26,10 @@ public class TaskFilterRepository {
         return mongoTemplate.find(Query.query(criteria), Task.class);
     }
 
+    public List<Task> findAllByOrderByHighToLowPriority() {
+        List<Task> tasks = mongoTemplate.findAll(Task.class);
+        tasks.sort((task1, task2) -> task2.getPriority().getPriorityValue() - task1.getPriority().getPriorityValue());
+        return tasks;
+    }
+
 }
